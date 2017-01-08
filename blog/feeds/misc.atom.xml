@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>2016Spring 計算機程式 (虎尾科大VE)</title><link href="./" rel="alternate"></link><link href="./feeds/misc.atom.xml" rel="self"></link><id>./</id><updated>2017-01-08T11:00:00+08:00</updated><entry><title>2017Spring 車輛工程系計算機程式</title><link href="./2017spring-che-liang-gong-cheng-xi-ji-suan-ji-cheng-shi.html" rel="alternate"></link><published>2017-01-08T11:00:00+08:00</published><updated>2017-01-08T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2017-01-08:./2017spring-che-liang-gong-cheng-xi-ji-suan-ji-cheng-shi.html</id><summary type="html">&lt;p&gt;有關本課程&lt;/p&gt;
+
+
+&lt;!-- 導入 Brython 標準程式庫 --&gt;
+
+&lt;script type="text/javascript" 
+    src="https://cdn.rawgit.com/brython-dev/brython/master/www/src/brython_dist.js"&gt;
+&lt;/script&gt;
+
+&lt;!-- 啟動 Brython --&gt;
+
+&lt;script&gt;
+window.onload=function(){
+brython(1);
+}
+&lt;/script&gt;
+
+&lt;!-- 以下利用 Brython 程式執行檔案讀取與比對流程 --&gt;
+
+&lt;!-- 假如需要用圖型表示數字, 則利用 canvas 繪圖 --&gt;
+
+&lt;!-- &lt;canvas id="plotarea" width="600" height="400"&gt;&lt;/canvas&gt; --&gt;
+
+&lt;p&gt;車輛工程系能（該)做什麼?&lt;/p&gt;
+&lt;p&gt;車 + 人 + 環境 (主體與所使用工具一定只能在地面?)&lt;/p&gt;
+&lt;p&gt;汽車設計製造與維修 ( hybrid, electrical, traditional)&lt;/p&gt;
+&lt;p&gt;交通管理&lt;/p&gt;
+&lt;p&gt;監控與防盜&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.mxeduc.org.tw/ScienceAward/history/projectDoc/12th/production.htm"&gt;http://www.mxeduc.org.tw/ScienceAward/history/projectDoc/12th/production.htm&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.zhihu.com/question/47440579"&gt;https://www.zhihu.com/question/47440579&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://link.springer.com/book/10.1007/978-3-662-44814-4"&gt;Automated Guided Vehicle Systems&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://link.springer.com/book/10.1007/978-3-540-36045-2"&gt;Vehicle Dynamics&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.shs.edu.tw/works/essay/2016/03/2016032008262833.pdf"&gt;雲監控與汽車防盜&lt;/a&gt;&lt;/p&gt;
+&lt;div id="container1"&gt;&lt;/div&gt;
+
+&lt;script type="text/python3" id="script1"&gt;
+from browser import document, html
+container1 = document['container1']
+&lt;/script&gt;</summary><category term="Vcp"></category></entry></feed>
