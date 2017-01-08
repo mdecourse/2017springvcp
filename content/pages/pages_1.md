@@ -1,4 +1,3 @@
-@language md
 Title: About
 
 ##2017Spring 車輛工程系計算機程式

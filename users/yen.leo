@@ -22,7 +22,7 @@
 <v t="yen.20170108171733.6"><vh>@edit local_publishconf.py</vh></v>
 <v t="yen.20170108171733.7"><vh>@edit pelicanconf.py</vh></v>
 </v>
-<v t="yen.20170108171733.8" a="E"><vh>@clean index.html</vh>
+<v t="yen.20170108171733.8"><vh>@clean index.html</vh>
 <v t="yen.20170108171733.9" a="E"><vh>html</vh>
 <v t="yen.20170108171733.10"><vh>head</vh></v>
 <v t="yen.20170108171733.11" a="E"><vh>body</vh>
@@ -51,7 +51,11 @@
 </v>
 </v>
 <v t="yen.20170108171733.71" a="E"><vh>@path content</vh>
-<v t="yen.20170108171733.72"><vh>@edit 20170108.md</vh></v>
+<v t="yen.20170108171733.72" a="E"><vh>@clean 20170108.md</vh>
+<v t="yen.20170108212459.1"><vh>ex1 - for 迴圈</vh></v>
+<v t="yen.20170108212856.1"><vh>ex2 - input 與單位換算</vh></v>
+<v t="yen.20170108220306.1"><vh>filereader</vh></v>
+</v>
 <v t="yen.20170108171733.81" a="E"><vh>@path pages</vh>
 <v t="yen.20170108171733.82"><vh>@edit pages_1.md</vh></v>
 </v>
@@ -344,6 +348,218 @@ make.start()
 &lt;iframe src="https://player.vimeo.com/video/183950627" width="640" height="492" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;
 </t>
 <t tx="yen.20170108171733.71"></t>
+<t tx="yen.20170108171733.72">@language md
+Title: 2017Spring 車輛工程系計算機程式
+Date: 2017-01-08 11:00
+Category: Misc
+Tags: Vcp
+Author: yen
+
+有關本課程
+
+&lt;!-- PELICAN_END_SUMMARY --&gt;
+
+&lt;!-- 導入 FileSaver 與 filereader --&gt;
+&lt;script type="text/javascript" src="./../ace/FileSaver.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="./../ace/filereader.js"&gt;&lt;/script&gt;
+
+&lt;!-- 導入 Brython 標準程式庫 --&gt;
+&lt;!-- &lt;script type="text/javascript" src="https://cdn.rawgit.com/brython-dev/brython/master/www/src/brython_dist.js"&gt;
+&lt;/script&gt; --&gt;
+
+&lt;!-- 為了讓 import script1 可以正確運行, 停留在 Brython 3.2.9 版 --&gt;
+
+&lt;script type="text/javascript" src="https://cdn.rawgit.com/brython-dev/brython/3.2.9/www/src/brython_dist.js"&gt;
+&lt;/script&gt;
+
+&lt;!-- 啟動 Brython --&gt;
+&lt;script&gt;
+window.onload=function(){
+brython(1);
+}
+&lt;/script&gt;
+
+&lt;!-- 以下利用 Brython 程式執行檔案讀取與比對流程 --&gt;
+&lt;!-- 假如需要用圖型表示數字, 則利用 canvas 繪圖 --&gt;
+&lt;!-- &lt;canvas id="plotarea" width="600" height="400"&gt;&lt;/canvas&gt; --&gt;
+
+車輛工程系能（該)做什麼?
+
+車 + 人 + 環境 (主體與所使用工具一定只能在地面?)
+
+汽車設計製造與維修 ( hybrid, electrical, traditional)
+
+交通管理
+
+監控與防盜
+
+&lt;a href="http://www.mxeduc.org.tw/ScienceAward/history/projectDoc/12th/production.htm"&gt;http://www.mxeduc.org.tw/ScienceAward/history/projectDoc/12th/production.htm&lt;/a&gt;
+
+&lt;a href="https://www.zhihu.com/question/47440579"&gt;https://www.zhihu.com/question/47440579&lt;/a&gt;
+
+&lt;a href="http://link.springer.com/book/10.1007/978-3-662-44814-4"&gt;Automated Guided Vehicle Systems&lt;/a&gt;
+
+&lt;a href="http://link.springer.com/book/10.1007/978-3-540-36045-2"&gt;Vehicle Dynamics&lt;/a&gt;
+
+&lt;a href="http://www.shs.edu.tw/works/essay/2016/03/2016032008262833.pdf"&gt;雲監控與汽車防盜&lt;/a&gt;
+
+&lt;div id="container1"&gt;&lt;/div&gt;
+
+&lt;script type="text/python3"&gt;
+from browser import document, html
+container1 = document['container1']
+&lt;/script&gt;
+
+### 利用伺服器執行 Python3 程式
+
+Jupyterhub: &lt;a href="https://8888.kmol.info:9443"&gt;https://8888.kmol.info:9443&lt;/a&gt;
+
+### 利用以下的編輯器執行 Python3 程式
+
+&lt;script src="./../ace/ace.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+&lt;script src="./../ace/ext-language_tools.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+&lt;script src="./../ace/mode-python3.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+&lt;script src="./../ace/snippets/python.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+&lt;!-- 請注意, 這裡使用 Javascript 將 localStorage["py_src"] 中存在近端瀏覽器的程式碼, 由使用者決定存檔名稱--&gt;
+&lt;script type="text/javascript"&gt;
+function doSave(){
+    var blob = new Blob([localStorage["py_src"]], {type: "text/plain;charset=utf-8"});
+    filename = document.getElementById('filename').value
+    saveAs(blob, filename+".py");
+}
+&lt;/script&gt;
+
+&lt;script type="text/python3" id="script1"&gt;
+import sys
+import time
+import traceback
+import javascript
+
+from browser import document as doc, window, alert
+
+has_ace = True
+try:
+    editor = window.ace.edit("editor")
+    session = editor.getSession()
+    session.setMode("ace/mode/python")
+
+    editor.setOptions({
+     'enableLiveAutocompletion': True,
+     'enableSnippets': True,
+     'highlightActiveLine': False,
+     'highlightSelectedWord': True
+    })
+except:
+    from browser import html
+    editor = html.TEXTAREA(rows=20, cols=70)
+    doc["editor"] &lt;= editor
+    def get_value(): return editor.value
+    def set_value(x):editor.value = x
+    editor.getValue = get_value
+    editor.setValue = set_value
+    has_ace = False
+
+if hasattr(window, 'localStorage'):
+    from browser.local_storage import storage
+else:
+    storage = None
+
+def reset_src():
+    if storage is not None and "py_src" in storage:
+        editor.setValue(storage["py_src"])
+    else:
+        editor.setValue('for i in range(10):\n\tprint(i)')
+    editor.scrollToRow(0)
+    editor.gotoLine(0)
+
+def reset_src_area():
+    if storage and "py_src" in storage:
+        editor.value = storage["py_src"]
+    else:
+        editor.value = 'for i in range(10):\n\tprint(i)'
+
+class cOutput:
+
+    def __init__(self,target):
+        self.target = doc[target]
+    def write(self,data):
+        self.target.value += str(data)
+        
+
+#if "console" in doc:
+sys.stdout = cOutput("console")
+sys.stderr = cOutput("console")
+
+def to_str(xx):
+    return str(xx)
+
+info = sys.implementation.version
+doc['version'].text = 'Brython %s.%s.%s' % (info.major, info.minor, info.micro)
+
+output = ''
+
+def show_console(ev):
+    doc["console"].value = output
+    doc["console"].cols = 60
+    doc["console"].rows = 10
+
+# load a Python script
+def load_script(evt):
+    _name = evt.target.value + '?foo=%s' % time.time()
+    editor.setValue(open(_name).read())
+
+# run a script, in global namespace if in_globals is True
+def run(*args):
+    global output
+    doc["console"].value = ''
+    src = editor.getValue()
+    if storage is not None:
+       storage["py_src"] = src
+
+    t0 = time.perf_counter()
+    try:
+        #ns = {'__name__':'__main__'}
+        ns = {'__name__':'editor'}
+        exec(src, ns)
+        state = 1
+    except Exception as exc:
+        traceback.print_exc(file=sys.stderr)
+        state = 0
+    output = doc["console"].value
+
+    print('&lt;completed in %6.2f ms&gt;' % ((time.perf_counter() - t0) * 1000.0))
+    return state
+
+if has_ace:
+    reset_src()
+else:
+    reset_src_area()
+    
+def clear_console(ev):
+    doc["console"].value = ""
+
+doc['run'].bind('click',run)
+doc['show_console'].bind('click',show_console)
+doc['clear_console'].bind('click',clear_console)
+&lt;/script&gt;
+
+&lt;div id="version"&gt;&lt;/div&gt;
+&lt;div id="editor" style="width:600px;height:300px;"&gt;&lt;/div&gt;
+
+&lt;!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --&gt;
+
+&lt;form&gt;
+    &lt;label&gt;Filename: &lt;input type="text" id="filename" placeholder="input file name"/&gt;.py&lt;/label&gt;
+    &lt;input type="submit" value="Save" onclick="doSave();"/&gt;
+&lt;/form&gt;
+&lt;button id="run"&gt;Run&lt;/button&gt;
+&lt;button id="show_console"&gt;Output&lt;/button&gt;
+&lt;button id="clear_console"&gt;清除&lt;/button&gt;
+&lt;div style="width:100%;height:100%;"&gt;
+&lt;textarea id="console" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;/div&gt;
+&lt;div id="common"&gt;&lt;/div&gt;
+@others</t>
 <t tx="yen.20170108171733.8">@language xml
 @tabwidth -4
 @others
@@ -408,5 +624,73 @@ def domake():
 # 利用執行緒執行 https 伺服器
 make = threading.Thread(target=domake)
 make.start()</t>
+<t tx="yen.20170108212459.1">
+&lt;script type="text/python3"&gt;
+from browser import document as doc
+import script1
+
+def ex1(ev):
+    script1.editor.setValue('''#ex1 簡單的 for 迴圈範例
+    for i in range(10):
+        print(i)
+    ''')
+    script1.editor.scrollToRow(0)
+    script1.editor.gotoLine(0)
+doc['ex1'].bind('click',ex1)
+&lt;/script&gt;&lt;a id="ex1"&gt;ex1&lt;/a&gt;-for 迴圈
+</t>
+<t tx="yen.20170108212856.1">
+&lt;script type="text/python3"&gt;
+from browser import document as doc
+import script1
+
+def ex2(ev):
+    script1.editor.setValue('''#溫度轉換程式
+from browser import document as doc
+
+# 因為此函式與滑鼠互動, 需要 event 當作輸入
+def convTemp():
+    mystring = ""
+    cdegree = input("請輸入攝氏溫度:")
+    fdegree = float(cdegree)*9/5 + 32
+    output_string = "攝氏 " + str(cdegree) + "度=華氏 " + str(fdegree) + "度" 
+    # 利用 print() 將轉換結果送到 console 區
+    print(output_string)
+
+#直接呼叫 convTemp() 執行
+convTemp()
+    ''')
+    script1.editor.scrollToRow(0)
+    script1.editor.gotoLine(0)
+doc['ex2'].bind('click',ex2)
+&lt;/script&gt;&lt;a id="ex2"&gt;ex2&lt;/a&gt;-溫度換算</t>
+<t tx="yen.20170108220306.1">
+&lt;script type="text/python3"&gt;
+from browser import document
+import script1
+
+def get_file(e):
+    data = open("./../python_ex/for1.py").read()
+    script1.editor.setValue(data)
+    script1.editor.scrollToRow(0)
+    script1.editor.gotoLine(0)
+    
+document["get"].bind("click", get_file)
+&lt;/script&gt;
+
+&lt;script type="text/python3"&gt;
+from browser import document
+import script1
+
+def get_temp1(e):
+    data = open("./../python_ex/temp1.py").read()
+    script1.editor.setValue(data)
+    script1.editor.scrollToRow(0)
+    script1.editor.gotoLine(0)
+    
+document["get_temp1"].bind("click", get_temp1)
+&lt;/script&gt;
+&lt;button id="get"&gt;for1.py&lt;/button&gt;&lt;button id="get_temp1"&gt;temp1.py&lt;/button&gt;
+</t>
 </tnodes>
 </leo_file>
