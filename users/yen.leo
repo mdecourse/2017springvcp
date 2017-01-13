@@ -416,6 +416,10 @@ Jupyterhub: &lt;a href="https://8888.kmol.info:9443"&gt;https://8888.kmol.info:9
 
 ### 利用以下的編輯器執行 Python3 程式
 
+在 Firefox 中, 以 Preferences - General - Downloads 選擇"Always ask me where to save files"
+
+在 Chrome 中, 以 Settings - Advanced - Downloads 選擇 Ask where to save each file before downloading
+
 &lt;script src="./../ace/ace.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
 &lt;script src="./../ace/ext-language_tools.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
 &lt;script src="./../ace/mode-python3.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
@@ -690,7 +694,21 @@ def get_temp1(e):
     
 document["get_temp1"].bind("click", get_temp1)
 &lt;/script&gt;
-&lt;button id="get"&gt;for1.py&lt;/button&gt;&lt;button id="get_temp1"&gt;temp1.py&lt;/button&gt;
+
+&lt;script type="text/python3"&gt;
+from browser import document
+import script1
+
+def get_ver_and_kw(e):
+    data = open("./../python_ex/ver_and_kw.py").read()
+    script1.editor.setValue(data)
+    script1.editor.scrollToRow(0)
+    script1.editor.gotoLine(0)
+    
+document["get_ver_and_kw"].bind("click", get_ver_and_kw)
+&lt;/script&gt;
+
+&lt;button id="get"&gt;for1.py&lt;/button&gt;&lt;button id="get_temp1"&gt;temp1.py&lt;/button&gt;&lt;button id="get_ver_and_kw"&gt;ver_and_kw.py&lt;/button&gt;
 </t>
 </tnodes>
 </leo_file>
