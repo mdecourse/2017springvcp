@@ -51,11 +51,13 @@
 </v>
 </v>
 <v t="yen.20170108171733.71" a="E"><vh>@path content</vh>
-<v t="yen.20170108171733.72" a="E"><vh>@clean 20170108.md</vh>
+<v t="yen.20170108171733.72"><vh>@clean 20170108.md</vh>
 <v t="yen.20170108212459.1"><vh>ex1 - for 迴圈</vh></v>
 <v t="yen.20170108212856.1"><vh>ex2 - input 與單位換算</vh></v>
 <v t="yen.20170108220306.1"><vh>filereader</vh></v>
 </v>
+<v t="yen.20170118204210.1"><vh>@edit 20170118.md</vh></v>
+<v t="yen.20170126025904.1"><vh>@edit 20170125.md</vh></v>
 <v t="yen.20170108171733.81" a="E"><vh>@path pages</vh>
 <v t="yen.20170108171733.82"><vh>@edit pages_1.md</vh></v>
 </v>
@@ -351,11 +353,12 @@ make.start()
 <t tx="yen.20170108171733.72">@language md
 Title: 2017Spring 車輛工程系計算機程式
 Date: 2017-01-08 11:00
-Category: Misc
-Tags: Vcp
+Category: Course
+Tags: syllabus, w1
+Slug: 2017spring-ve-cp
 Author: yen
 
-有關本課程
+為了運行速度, 我們學 C; 為了開發效率, 我們學 Python, 想要同時得到運行速度與開發效率, 我們學習 C + Python! 更具體的說: 在 2017Spring 的計算機程式課程中, 我們學習簡單的 ANSI C 與 Python3.
 
 &lt;!-- PELICAN_END_SUMMARY --&gt;
 
@@ -379,32 +382,51 @@ brython(1);
 }
 &lt;/script&gt;
 
-&lt;!-- 以下利用 Brython 程式執行檔案讀取與比對流程 --&gt;
+&lt;!-- 以下可利用 Brython 環境執行 Python3 程式 --&gt;
 &lt;!-- 假如需要用圖型表示數字, 則利用 canvas 繪圖 --&gt;
 &lt;!-- &lt;canvas id="plotarea" width="600" height="400"&gt;&lt;/canvas&gt; --&gt;
 
-車輛工程系能（該)做什麼?
+2017 Spring 車輛工程系計算機程式 (五) 18:30-20:00上課日期:
 
-車 + 人 + 環境 (主體與所使用工具一定只能在地面?)
+&lt;span style="background-color: #ffff00"&gt;w1-2/24&lt;/span&gt; - 請每人準備一個隨身碟, &lt;span style="background-color: #55ff55"&gt;&lt;a href="http://service.mde.tw/download/?type=files&amp;filename=tiny2017_30MB.7z"&gt;下載&lt;/a&gt;&lt;/span&gt;可攜程式系統 (30MB) (或從倉儲中&lt;a href="./../data/tiny2017.7z"&gt;下載&lt;/a&gt;), 從校園網路&lt;span style="background-color: #55ff55"&gt;&lt;a href="http://link.springer.com/book/10.1007/978-1-4842-2385-7"&gt;下載 Lean Python.pdf&lt;/a&gt;&lt;/span&gt; (7MB, 100 頁), &lt;span style="background-color: #55ff55"&gt;&lt;a href="https://service.mde.tw/download/?type=files&amp;filename=Programming-in-ANSI-C.pdf"&gt;下載 Programming in ANSI C.pdf&lt;/a&gt;&lt;/span&gt; (或從倉儲中&lt;a href="./../data/Programming-in-ANSI-C.pdf"&gt;下載&lt;/a&gt;) (600KB, 258 頁), 了解如何啟動系統, 了解如何關閉系統, 了解如何執行 C 程式, 了解如何執行 Python3 程式, 了解為何要學習 C 與 Python3 程式語言.
 
-汽車設計製造與維修 ( hybrid, electrical, traditional)
+&lt;span style="background-color: #ffff00"&gt;w2-3/3&lt;/span&gt; - ANSI C: Part A Section 1 - C 程式歷史與架構 | Python3: Ch1 Getting Started, 了解 Python 解譯器互動模式, 利用 dir() 列出物件屬性, 基本函式定義, 註解與程式碼縮排
 
-交通管理
+&lt;span style="background-color: #ffff00"&gt;w3-3/10&lt;/span&gt; - ANSI C: Part A Section 2 - C 常數與變數 | Python3: Ch2 Python Objects, 了解 Python 物件型別與基本用法
 
-監控與防盜
+&lt;span style="background-color: #ffff00"&gt;w4-3/17&lt;/span&gt; - 課程內容回顧與練習, 分別利用 C 與 Python3 寫一個華氏與攝氏溫度轉換程式, 並比較兩者的差異.
 
-&lt;a href="http://www.mxeduc.org.tw/ScienceAward/history/projectDoc/12th/production.htm"&gt;http://www.mxeduc.org.tw/ScienceAward/history/projectDoc/12th/production.htm&lt;/a&gt;
+&lt;span style="background-color: #ffff00"&gt;w5-3/24&lt;/span&gt; - ANSI C: Part A Section 3 - 變數賦值與表達式 | Python3: Ch3 Program Structure, 了解 Python 程式架構
 
-&lt;a href="https://www.zhihu.com/question/47440579"&gt;https://www.zhihu.com/question/47440579&lt;/a&gt;
+&lt;span style="background-color: #ffff00"&gt;w6-3/31&lt;/span&gt;(放假)
 
-&lt;a href="http://link.springer.com/book/10.1007/978-3-662-44814-4"&gt;Automated Guided Vehicle Systems&lt;/a&gt;
+&lt;span style="background-color: #ffff00"&gt;w7-4/7&lt;/span&gt; - 課程內容回顧與練習, 簡單介紹能在瀏覽器中執行的 &lt;a href="https://brython.info/"&gt;Brython&lt;/a&gt;
 
-&lt;a href="http://link.springer.com/book/10.1007/978-3-540-36045-2"&gt;Vehicle Dynamics&lt;/a&gt;
+&lt;span style="background-color: #ffff00"&gt;w8-4/14&lt;/span&gt; - ANSI C: Part A Section 4, 5, 6 | Python3: Ch4 - 6, 分組整理出一份漂亮的計算機程式初學者教材?如何整理?如何呈現?從 tiny2017 (30MB) 進展到 mini2017 (2GB)
 
-&lt;a href="http://www.shs.edu.tw/works/essay/2016/03/2016032008262833.pdf"&gt;雲監控與汽車防盜&lt;/a&gt;
+&lt;span style="background-color: #ffff00"&gt;w9-4/21&lt;/span&gt; (期中考週) - 課程回顧與期中簡報
+
+&lt;span style="background-color: #ffff00"&gt;w10-4/28&lt;/span&gt; ANSI C： Part A Section 1-6 再回顧 | Python3: Ch 1-6, 從 C、Python3 到 Brython, 導入 mini2017 之後, 帶出 Github 與 github pages, 我們學到什麼?
+
+&lt;span style="background-color: #ffff00"&gt;w11-5/5&lt;/span&gt; 檢討分組期中報告與期中簡報, 我們學計算機程式的初衷為了什麼? 利用 Leo Editor、Pelican Blog、Reveal.js 與 Ethercalc 替換 MS Words、PowerPoint 與 Excel?
+
+&lt;span style="background-color: #ffff00"&gt;w12-5/12&lt;/span&gt; - 是的, 我們確實隱瞞了許多複雜的細節, 了解如何利用 &lt;a href="http://bellard.org/tcc/"&gt;Tiny C compiler&lt;/a&gt; 編譯自己, 了解如何將 C 程式, 以 Tiny C 編譯為動態程式庫, 然後從 Python3 程式中進行呼叫.
+
+&lt;span style="background-color: #ffff00"&gt;w13-5/19&lt;/span&gt; - 分組練習, 準備期末專題報告與簡報
+
+&lt;span style="background-color: #ffff00"&gt;w14-5/26&lt;/span&gt; - 分組練習, 準備期末專題報告與簡報
+
+&lt;span style="background-color: #ffff00"&gt;w15-6/2&lt;/span&gt; - 分組練習, 準備期末專題報告與簡報
+
+&lt;span style="background-color: #ffff00"&gt;w16-6/9&lt;/span&gt; - 分組練習, 準備期末專題報告與簡報
+
+&lt;span style="background-color: #ffff00"&gt;w17-6/16&lt;/span&gt; - 分組練習, 準備期末專題報告與簡報
+
+&lt;span style="background-color: #ffff00"&gt;w18-6/23&lt;/span&gt; (期末考週), 分組期末簡報
+
+參考書: &lt;a href="http://link.springer.com/book/10.1007/978-3-642-23303-6"&gt;Programming for Engineers - A Foundational Approach to Learning C and Matlab&lt;/a&gt;
 
 &lt;div id="container1"&gt;&lt;/div&gt;
-
 &lt;script type="text/python3"&gt;
 from browser import document, html
 container1 = document['container1']
@@ -587,14 +609,15 @@ import http.server, ssl
 def domake():
     # build directory
     os.chdir("./../")
-    server_address = ('localhost', 8443)
+    server_address = ('localhost', 5443)
     httpd = http.server.HTTPServer(server_address, http.server.SimpleHTTPRequestHandler)
     httpd.socket = ssl.wrap_socket(httpd.socket,
                                    server_side=True,
                                    certfile='localhost.crt',
                                    keyfile='localhost.key',
                                    ssl_version=ssl.PROTOCOL_TLSv1)
-    print("8443 https server started")
+    print(os.getcwd())
+    print("5443 https server started")
     httpd.serve_forever()
 
 # 利用執行緒執行 https 伺服器

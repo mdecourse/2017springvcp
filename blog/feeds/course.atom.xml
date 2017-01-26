@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>2017Spring 計算機程式 (虎尾科大VE)</title><link href="./" rel="alternate"></link><link href="./feeds/course.atom.xml" rel="self"></link><id>./</id><updated>2017-01-18T11:00:00+08:00</updated><entry><title>C dll 程式庫與 Python3</title><link href="./c-dll-and-python3.html" rel="alternate"></link><published>2017-01-18T11:00:00+08:00</published><updated>2017-01-18T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2017-01-18:./c-dll-and-python3.html</id><summary type="html">&lt;p&gt;利用 &lt;a href="http://bellard.org/tcc/"&gt;Tiny C compiler&lt;/a&gt; 編譯 Windows 10 64 位元 dll 動態連結庫, 並由 Python 程式呼叫執行.&lt;/p&gt;
+
+
+&lt;h2&gt;利用 Tiny C 編譯 Tiny C&lt;/h2&gt;
+&lt;p&gt;從 &lt;a href="http://download.savannah.gnu.org/releases/tinycc/"&gt;http://download.savannah.gnu.org/releases/tinycc/&lt;/a&gt; &lt;a href="http://download.savannah.gnu.org/releases/tinycc/tcc-0.9.26-win64-bin.zip"&gt;下載&lt;/a&gt; Win64 C 程式編譯器, 並&lt;a href="http://download.savannah.gnu.org/releases/tinycc/tcc-0.9.26.tar.bz2"&gt;下載&lt;/a&gt; Tiny C compiler 0.9.26 版程式原始碼. 利用下列批次檔案進行編譯.&lt;/p&gt;
+&lt;p&gt;compileTCC.bat 檔案內容:&lt;/p&gt;
+&lt;pre class="brush: shell"&gt;
+echo Use TCC to compile TCC
+
+echo Set CC=tcc
+
+set CC=tcc
+set target=-DTCC_TARGET_PE -DTCC_TARGET_X86_64
+set P=64
+
+echo tools: tiny_impdef.exe, tiny_libmaker.exe
+
+%CC% %target% win32/tools/tiny_impdef.c -o tiny_impdef.exe
+%CC% %target% win32/tools/tiny_libmaker.c -o tiny_libmaker.exe
+
+echo Compile libtcc.dll
+
+if not exist libtcc\nul mkdir libtcc
+%CC% %target% -w -shared -DLIBTCC_AS_DLL -DONE_SOURCE libtcc.c -o libtcc.dll
+tiny_impdef libtcc.dll -o libtcc/libtcc.def
+
+echo Compile tc.exe
+
+%CC% %target% tcc.c -o tc.exe -ltcc -Llibtcc
+
+echo Compile libcc1.a
+
+%CC% %target% -c lib/libtcc1.c
+%CC% %target% -c win32/lib/crt1.c
+%CC% %target% -c win32/lib/wincrt1.c
+%CC% %target% -c win32/lib/dllcrt1.c
+%CC% %target% -c win32/lib/dllmain.c
+%CC% %target% -c win32/lib/chkstk.S
+%CC% %target% -c lib/alloca86_64.S
+tiny_libmaker lib/libtcc1.a libtcc1.o alloca86_64.o crt1.o wincrt1.o dllcrt1.o dllmain.o chkstk.o
+&lt;/pre&gt;
+
+&lt;h2&gt;編譯 dll 動態程式庫&lt;/h2&gt;
+&lt;p&gt;首先, 建立一個 multiply.c 程式:&lt;/p&gt;
+&lt;pre class="brush: c"&gt;
+#include &amp;lt;stdio.h&amp;gt;
+
+int multiply(int, int);
+
+__declspec(dllexport) int
+multiply(int num1, int num2)
+{
+return num1 * num2;
+}
+&lt;/pre&gt;
+
+&lt;p&gt;利用下列指令, 將 multiply.c 編譯為動態連結庫 myltiply.dll&lt;/p&gt;
+&lt;p&gt;tcc -w -shared -DLIBTCC_AS_DLL -DONE_SOURCE multiply.c -o multiply.dll&lt;/p&gt;
+&lt;p&gt;接著利用下列 Python3 程式, 透過 ctypes 模組導入 multiply.dll, 並且執行動態連結程式庫中的 multiply() 函式.&lt;/p&gt;
+&lt;pre class="brush: python"&gt;
+import ctypes
+
+lib = ctypes.CDLL('multiply.dll')
+result = lib.multiply(3, 2)
+print(result)
+&lt;/pre&gt;</summary><category term="tinyc"></category><category term="dll"></category><category term="ctypes"></category><category term="w12"></category></entry><entry><title>為什麼要學習計算機程式?</title><link href="./why-computer-programming.html" rel="alternate"></link><published>2017-01-18T11:00:00+08:00</published><updated>2017-01-18T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2017-01-18:./why-computer-programming.html</id><summary type="html">&lt;p&gt;車輛工程系學習計算機程式做什麼?&lt;/p&gt;
+
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;(電動汽車世代來臨) - 隨著現代汽車傳動控制的電子化、電機化、網路化與智能化, 計算機程式相關技術在汽車領域的應用將會愈來愈重要.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(電腦輔助設計普及) - 現代汽車的協同設計研發大量採用 Computer Aided Design (CAD, 利用電腦實現設計的具像表達, 直接建構模擬系統或 API 延伸), Finite Element Analysis (利用電腦實現設計的強度與碰撞分析), Data Acquisition (數據擷取), and Numerical Analysis (數值分析). &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(虛擬與擴增實境整合) - 現代汽車行路對於網路化與數位化地圖與即時路況資料的依賴愈來愈多, 這些資料需要透過許多電腦程式的整合運行.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Python 為解譯式、泛用型程式語言&lt;/p&gt;
+&lt;p&gt;Python 可以作為互動式計算機&lt;/p&gt;
+&lt;p&gt;Python 語法可以透過 Brython, 直接在瀏覽器中執行&lt;/p&gt;
+&lt;p&gt;Python 可以直接在 Jupyterlab 環境中執行&lt;/p&gt;
+&lt;p&gt;計算機程式抽象層級:&lt;/p&gt;
+&lt;p&gt;&lt;img src="./../data/reichart-abstraction-diagram.png" width='600' /&gt;&lt;/p&gt;
+&lt;p&gt;Controller Area Network (CAN)&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/hardbyte/python-can"&gt;https://github.com/hardbyte/python-can&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="./../data/canbus_network.jpg" width='600' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://spectrum.ieee.org/automaton/robotics/artificial-intelligence/how-google-self-driving-car-works"&gt;http://spectrum.ieee.org/automaton/robotics/artificial-intelligence/how-google-self-driving-car-works&lt;/a&gt;&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/YXylqtEQ0tk" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;(2011)&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/7Yd9Ij0INX0" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;(2013)&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/yPCt7mu-pb0" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;(2013)&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/nL-CqMenOqQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;(2013)&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/czLI3oLDe8M" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;(2014)&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/wPHq4LYNmRY" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;(2015)&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/3dXQxSI3XDY" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;(2016)&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/GE32Vvt-flM" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;(2017)&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/5izIed9nGdo" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;(2017)&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://blog.teamtreehouse.com/havent-started-programming-yet"&gt;http://blog.teamtreehouse.com/havent-started-programming-yet&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;if computers are at all a part of your life, then learning to program is going to improve your life.&lt;/p&gt;
+&lt;p&gt;Learning to program can make you more productive, efficient and effective.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://theconversation.com/why-everyone-should-have-to-learn-computer-programming-62328"&gt;http://theconversation.com/why-everyone-should-have-to-learn-computer-programming-62328&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;數位化系統 (電腦) 無所不在, 希望高效且客製化運用這些系統, 就必須學習與電腦溝通&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.codementor.io/learn-programming/beginner-programming-language-job-salary-community"&gt;https://www.codementor.io/learn-programming/beginner-programming-language-job-salary-community&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://cacm.acm.org/blogs/blog-cacm/176450-python-is-now-the-most-popular-introductory-teaching-language-at-top-u-s-universities/fulltext"&gt;http://cacm.acm.org/blogs/blog-cacm/176450-python-is-now-the-most-popular-introductory-teaching-language-at-top-u-s-universities/fulltext&lt;/a&gt;&lt;/p&gt;</summary><category term="programming"></category><category term="w2"></category></entry><entry><title>2017Spring 車輛工程系計算機程式</title><link href="./2017spring-ve-cp.html" rel="alternate"></link><published>2017-01-08T11:00:00+08:00</published><updated>2017-01-08T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2017-01-08:./2017spring-ve-cp.html</id><summary type="html">&lt;p&gt;為了運行速度, 我們學 C; 為了開發效率, 我們學 Python, 想要同時得到運行速度與開發效率, 我們學習 C + Python! 更具體的說: 在 2017Spring 的計算機程式課程中, 我們學習簡單的 ANSI C 與 Python3.&lt;/p&gt;
+
+
+&lt;!-- 導入 FileSaver 與 filereader --&gt;
+
+&lt;script type="text/javascript" src="./../ace/FileSaver.min.js"&gt;&lt;/script&gt;
+
+&lt;script type="text/javascript" src="./../ace/filereader.js"&gt;&lt;/script&gt;
+
+&lt;!-- 導入 Brython 標準程式庫 --&gt;
+
+&lt;!-- &lt;script type="text/javascript" src="https://cdn.rawgit.com/brython-dev/brython/master/www/src/brython_dist.js"&gt;
+&lt;/script&gt; --&gt;
+
+&lt;!-- 為了讓 import script1 可以正確運行, 停留在 Brython 3.2.9 版 --&gt;
+
+&lt;script type="text/javascript" src="https://cdn.rawgit.com/brython-dev/brython/3.2.9/www/src/brython_dist.js"&gt;
+&lt;/script&gt;
+
+&lt;!-- 啟動 Brython --&gt;
+
+&lt;script&gt;
+window.onload=function(){
+brython(1);
+}
+&lt;/script&gt;
+
+&lt;!-- 以下可利用 Brython 環境執行 Python3 程式 --&gt;
+
+&lt;!-- 假如需要用圖型表示數字, 則利用 canvas 繪圖 --&gt;
+
+&lt;!-- &lt;canvas id="plotarea" width="600" height="400"&gt;&lt;/canvas&gt; --&gt;
+
+&lt;p&gt;2017 Spring 車輛工程系計算機程式 (五) 18:30-20:00上課日期:&lt;/p&gt;
+&lt;p&gt;&lt;span style="background-color: #ffff00"&gt;w1-2/24&lt;/span&gt; - 請每人準備一個隨身碟, &lt;span style="background-color: #55ff55"&gt;&lt;a href="http://service.mde.tw/download/?type=files&amp;filename=tiny2017_30MB.7z"&gt;下載&lt;/a&gt;&lt;/span&gt;可攜程式系統 (30MB) (或從倉儲中&lt;a href="./../data/tiny2017.7z"&gt;下載&lt;/a&gt;), 從校園網路&lt;span style="background-color: #55ff55"&gt;&lt;a href="http://link.springer.com/book/10.1007/978-1-4842-2385-7"&gt;下載 Lean Python.pdf&lt;/a&gt;&lt;/span&gt; (7MB, 100 頁), &lt;span style="background-color: #55ff55"&gt;&lt;a href="https://service.mde.tw/download/?type=files&amp;filename=Programming-in-ANSI-C.pdf"&gt;下載 Programming in ANSI C.pdf&lt;/a&gt;&lt;/span&gt; (或從倉儲中&lt;a href="./../data/Programming-in-ANSI-C.pdf"&gt;下載&lt;/a&gt;) (600KB, 258 頁), 了解如何啟動系統, 了解如何關閉系統, 了解如何執行 C 程式, 了解如何執行 Python3 程式, 了解為何要學習 C 與 Python3 程式語言.&lt;/p&gt;
+&lt;p&gt;&lt;span style="background-color: #ffff00"&gt;w2-3/3&lt;/span&gt; - ANSI C: Part A Section 1 - C 程式歷史與架構 | Python3: Ch1 Getting Started, 了解 Python 解譯器互動模式, 利用 dir() 列出物件屬性, 基本函式定義, 註解與程式碼縮排&lt;/p&gt;
+&lt;p&gt;&lt;span style="background-color: #ffff00"&gt;w3-3/10&lt;/span&gt; - ANSI C: Part A Section 2 - C 常數與變數 | Python3: Ch2 Python Objects, 了解 Python 物件型別與基本用法&lt;/p&gt;
+&lt;p&gt;&lt;span style="background-color: #ffff00"&gt;w4-3/17&lt;/span&gt; - 課程內容回顧與練習, 分別利用 C 與 Python3 寫一個華氏與攝氏溫度轉換程式, 並比較兩者的差異.&lt;/p&gt;
+&lt;p&gt;&lt;span style="background-color: #ffff00"&gt;w5-3/24&lt;/span&gt; - ANSI C: Part A Section 3 - 變數賦值與表達式 | Python3: Ch3 Program Structure, 了解 Python 程式架構&lt;/p&gt;
+&lt;p&gt;&lt;span style="background-color: #ffff00"&gt;w6-3/31&lt;/span&gt;(放假)&lt;/p&gt;
+&lt;p&gt;&lt;span style="background-color: #ffff00"&gt;w7-4/7&lt;/span&gt; - 課程內容回顧與練習, 簡單介紹能在瀏覽器中執行的 &lt;a href="https://brython.info/"&gt;Brython&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="background-color: #ffff00"&gt;w8-4/14&lt;/span&gt; - ANSI C: Part A Section 4, 5, 6 | Python3: Ch4 - 6, 分組整理出一份漂亮的計算機程式初學者教材?如何整理?如何呈現?從 tiny2017 (30MB) 進展到 mini2017 (2GB)&lt;/p&gt;
+&lt;p&gt;&lt;span style="background-color: #ffff00"&gt;w9-4/21&lt;/span&gt; (期中考週) - 課程回顧與期中簡報&lt;/p&gt;
+&lt;p&gt;&lt;span style="background-color: #ffff00"&gt;w10-4/28&lt;/span&gt; ANSI C： Part A Section 1-6 再回顧 | Python3: Ch 1-6, 從 C、Python3 到 Brython, 導入 mini2017 之後, 帶出 Github 與 github pages, 我們學到什麼?&lt;/p&gt;
+&lt;p&gt;&lt;span style="background-color: #ffff00"&gt;w11-5/5&lt;/span&gt; 檢討分組期中報告與期中簡報, 我們學計算機程式的初衷為了什麼? 利用 Leo Editor、Pelican Blog、Reveal.js 與 Ethercalc 替換 MS Words、PowerPoint 與 Excel?&lt;/p&gt;
+&lt;p&gt;&lt;span style="background-color: #ffff00"&gt;w12-5/12&lt;/span&gt; - 是的, 我們確實隱瞞了許多複雜的細節, 了解如何利用 &lt;a href="http://bellard.org/tcc/"&gt;Tiny C compiler&lt;/a&gt; 編譯自己, 了解如何將 C 程式, 以 Tiny C 編譯為動態程式庫, 然後從 Python3 程式中進行呼叫.&lt;/p&gt;
+&lt;p&gt;&lt;span style="background-color: #ffff00"&gt;w13-5/19&lt;/span&gt; - 分組練習, 準備期末專題報告與簡報&lt;/p&gt;
+&lt;p&gt;&lt;span style="background-color: #ffff00"&gt;w14-5/26&lt;/span&gt; - 分組練習, 準備期末專題報告與簡報&lt;/p&gt;
+&lt;p&gt;&lt;span style="background-color: #ffff00"&gt;w15-6/2&lt;/span&gt; - 分組練習, 準備期末專題報告與簡報&lt;/p&gt;
+&lt;p&gt;&lt;span style="background-color: #ffff00"&gt;w16-6/9&lt;/span&gt; - 分組練習, 準備期末專題報告與簡報&lt;/p&gt;
+&lt;p&gt;&lt;span style="background-color: #ffff00"&gt;w17-6/16&lt;/span&gt; - 分組練習, 準備期末專題報告與簡報&lt;/p&gt;
+&lt;p&gt;&lt;span style="background-color: #ffff00"&gt;w18-6/23&lt;/span&gt; (期末考週), 分組期末簡報&lt;/p&gt;
+&lt;p&gt;參考書: &lt;a href="http://link.springer.com/book/10.1007/978-3-642-23303-6"&gt;Programming for Engineers - A Foundational Approach to Learning C and Matlab&lt;/a&gt;&lt;/p&gt;
+&lt;div id="container1"&gt;&lt;/div&gt;
+
+&lt;script type="text/python3"&gt;
+from browser import document, html
+container1 = document['container1']
+&lt;/script&gt;
+
+&lt;h3&gt;利用伺服器執行 Python3 程式&lt;/h3&gt;
+&lt;p&gt;Jupyterhub: &lt;a href="https://8888.kmol.info:9443"&gt;https://8888.kmol.info:9443&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;利用以下的編輯器執行 Python3 程式&lt;/h3&gt;
+&lt;p&gt;在 Firefox 中, 以 Preferences - General - Downloads 選擇"Always ask me where to save files"&lt;/p&gt;
+&lt;p&gt;在 Chrome 中, 以 Settings - Advanced - Downloads 選擇 Ask where to save each file before downloading&lt;/p&gt;
+&lt;script src="./../ace/ace.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;script src="./../ace/ext-language_tools.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;script src="./../ace/mode-python3.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;script src="./../ace/snippets/python.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;!-- 請注意, 這裡使用 Javascript 將 localStorage["py_src"] 中存在近端瀏覽器的程式碼, 由使用者決定存檔名稱--&gt;
+
+&lt;script type="text/javascript"&gt;
+function doSave(){
+    var blob = new Blob([localStorage["py_src"]], {type: "text/plain;charset=utf-8"});
+    filename = document.getElementById('filename').value
+    saveAs(blob, filename+".py");
+}
+&lt;/script&gt;
+
+&lt;script type="text/python3" id="script1"&gt;
+import sys
+import time
+import traceback
+import javascript
+
+from browser import document as doc, window, alert
+
+has_ace = True
+try:
+    editor = window.ace.edit("editor")
+    session = editor.getSession()
+    session.setMode("ace/mode/python")
+
+    editor.setOptions({
+     'enableLiveAutocompletion': True,
+     'enableSnippets': True,
+     'highlightActiveLine': False,
+     'highlightSelectedWord': True
+    })
+except:
+    from browser import html
+    editor = html.TEXTAREA(rows=20, cols=70)
+    doc["editor"] &lt;= editor
+    def get_value(): return editor.value
+    def set_value(x):editor.value = x
+    editor.getValue = get_value
+    editor.setValue = set_value
+    has_ace = False
+
+if hasattr(window, 'localStorage'):
+    from browser.local_storage import storage
+else:
+    storage = None
+
+def reset_src():
+    if storage is not None and "py_src" in storage:
+        editor.setValue(storage["py_src"])
+    else:
+        editor.setValue('for i in range(10):\n\tprint(i)')
+    editor.scrollToRow(0)
+    editor.gotoLine(0)
+
+def reset_src_area():
+    if storage and "py_src" in storage:
+        editor.value = storage["py_src"]
+    else:
+        editor.value = 'for i in range(10):\n\tprint(i)'
+
+class cOutput:
+
+    def __init__(self,target):
+        self.target = doc[target]
+    def write(self,data):
+        self.target.value += str(data)
+
+
+#if "console" in doc:
+sys.stdout = cOutput("console")
+sys.stderr = cOutput("console")
+
+def to_str(xx):
+    return str(xx)
+
+info = sys.implementation.version
+doc['version'].text = 'Brython %s.%s.%s' % (info.major, info.minor, info.micro)
+
+output = ''
+
+def show_console(ev):
+    doc["console"].value = output
+    doc["console"].cols = 60
+    doc["console"].rows = 10
+
+# load a Python script
+def load_script(evt):
+    _name = evt.target.value + '?foo=%s' % time.time()
+    editor.setValue(open(_name).read())
+
+# run a script, in global namespace if in_globals is True
+def run(*args):
+    global output
+    doc["console"].value = ''
+    src = editor.getValue()
+    if storage is not None:
+       storage["py_src"] = src
+
+    t0 = time.perf_counter()
+    try:
+        #ns = {'__name__':'__main__'}
+        ns = {'__name__':'editor'}
+        exec(src, ns)
+        state = 1
+    except Exception as exc:
+        traceback.print_exc(file=sys.stderr)
+        state = 0
+    output = doc["console"].value
+
+    print('&lt;completed in %6.2f ms&gt;' % ((time.perf_counter() - t0) * 1000.0))
+    return state
+
+if has_ace:
+    reset_src()
+else:
+    reset_src_area()
+
+def clear_console(ev):
+    doc["console"].value = ""
+
+doc['run'].bind('click',run)
+doc['show_console'].bind('click',show_console)
+doc['clear_console'].bind('click',clear_console)
+&lt;/script&gt;
+
+&lt;div id="version"&gt;&lt;/div&gt;
+
+&lt;div id="editor" style="width:600px;height:300px;"&gt;&lt;/div&gt;
+
+&lt;!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --&gt;
+
+&lt;form&gt;
+    &lt;label&gt;Filename: &lt;input type="text" id="filename" placeholder="input file name"/&gt;.py&lt;/label&gt;
+    &lt;input type="submit" value="Save" onclick="doSave();"/&gt;
+&lt;/form&gt;
+
+&lt;p&gt;&lt;button id="run"&gt;Run&lt;/button&gt;
+&lt;button id="show_console"&gt;Output&lt;/button&gt;
+&lt;button id="clear_console"&gt;清除&lt;/button&gt;
+&lt;div style="width:100%;height:100%;"&gt;
+&lt;textarea id="console" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;/div&gt;
+&lt;div id="common"&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;script type="text/python3"&gt;
+from browser import document as doc
+import script1
+
+def ex1(ev):
+    script1.editor.setValue('''#ex1 簡單的 for 迴圈範例
+    for i in range(10):
+        print(i)
+    ''')
+    script1.editor.scrollToRow(0)
+    script1.editor.gotoLine(0)
+doc['ex1'].bind('click',ex1)
+&lt;/script&gt;
+
+&lt;p&gt;&lt;a id="ex1"&gt;ex1&lt;/a&gt;-for 迴圈&lt;/p&gt;
+&lt;script type="text/python3"&gt;
+from browser import document as doc
+import script1
+
+def ex2(ev):
+    script1.editor.setValue('''#溫度轉換程式
+from browser import document as doc
+
+# 因為此函式與滑鼠互動, 需要 event 當作輸入
+def convTemp():
+    mystring = ""
+    cdegree = input("請輸入攝氏溫度:")
+    fdegree = float(cdegree)*9/5 + 32
+    output_string = "攝氏 " + str(cdegree) + "度=華氏 " + str(fdegree) + "度" 
+    # 利用 print() 將轉換結果送到 console 區
+    print(output_string)
+
+#直接呼叫 convTemp() 執行
+convTemp()
+    ''')
+    script1.editor.scrollToRow(0)
+    script1.editor.gotoLine(0)
+doc['ex2'].bind('click',ex2)
+&lt;/script&gt;
+
+&lt;p&gt;&lt;a id="ex2"&gt;ex2&lt;/a&gt;-溫度換算&lt;/p&gt;
+&lt;script type="text/python3"&gt;
+from browser import document
+import script1
+
+def get_file(e):
+    data = open("./../python_ex/for1.py").read()
+    script1.editor.setValue(data)
+    script1.editor.scrollToRow(0)
+    script1.editor.gotoLine(0)
+
+document["get"].bind("click", get_file)
+&lt;/script&gt;
+
+&lt;script type="text/python3"&gt;
+from browser import document
+import script1
+
+def get_temp1(e):
+    data = open("./../python_ex/temp1.py").read()
+    script1.editor.setValue(data)
+    script1.editor.scrollToRow(0)
+    script1.editor.gotoLine(0)
+
+document["get_temp1"].bind("click", get_temp1)
+&lt;/script&gt;
+
+&lt;script type="text/python3"&gt;
+from browser import document
+import script1
+
+def get_ver_and_kw(e):
+    data = open("./../python_ex/ver_and_kw.py").read()
+    script1.editor.setValue(data)
+    script1.editor.scrollToRow(0)
+    script1.editor.gotoLine(0)
+
+document["get_ver_and_kw"].bind("click", get_ver_and_kw)
+&lt;/script&gt;
+
+&lt;p&gt;&lt;button id="get"&gt;for1.py&lt;/button&gt;&lt;button id="get_temp1"&gt;temp1.py&lt;/button&gt;&lt;button id="get_ver_and_kw"&gt;ver_and_kw.py&lt;/button&gt;&lt;/p&gt;</summary><category term="syllabus"></category><category term="w1"></category></entry></feed>
