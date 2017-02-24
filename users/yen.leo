@@ -18,9 +18,14 @@
 <v t="yen.20170108171733.2"><vh>@button pelican-blog</vh></v>
 <v t="yen.20170108171733.3"><vh>@edit README.md</vh></v>
 <v t="yen.20170108171733.4"><vh>@edit .gitignore</vh></v>
-<v t="yen.20170108171733.5" a="E"><vh>Pelican 設定</vh>
+<v t="yen.20170108171733.5"><vh>Pelican 設定</vh>
 <v t="yen.20170108171733.6"><vh>@edit local_publishconf.py</vh></v>
 <v t="yen.20170108171733.7"><vh>@edit pelicanconf.py</vh></v>
+</v>
+<v t="leo.20170224211149.1" a="E"><vh>編輯 template</vh>
+<v t="leo.20170224211149.2" a="E"><vh>@path theme/pelican-bootstrap3_local/templates</vh>
+<v t="leo.20170224211149.3"><vh>@edit base.html</vh></v>
+</v>
 </v>
 <v t="yen.20170108171733.8"><vh>@clean index.html</vh>
 <v t="yen.20170108171733.9" a="E"><vh>html</vh>
@@ -69,6 +74,8 @@
 <v t="yen.20170108171939.1"><vh>@button ipv6 https server</vh></v>
 </vnodes>
 <tnodes>
+<t tx="leo.20170224211149.1"></t>
+<t tx="leo.20170224211149.2"></t>
 <t tx="yen.20170108171605.1"></t>
 <t tx="yen.20170108171605.2">QTreeWidget {
     /* These apply to the selected item, but not to editing items.*/
