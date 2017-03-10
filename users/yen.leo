@@ -59,11 +59,12 @@
 <v t="yen.20170108171733.72"><vh>@edit 20170108.md</vh></v>
 <v t="yen.20170118204210.1"><vh>@edit 20170118.md</vh></v>
 <v t="yen.20170126025904.1"><vh>@edit 20170125.md</vh></v>
-<v t="yen.20170208125141.1" a="E"><vh>@clean 20170208.md</vh>
+<v t="yen.20170208125141.1"><vh>@clean 20170208.md</vh>
 <v t="yen.20170208125543.1"><vh>ex1 - for 迴圈</vh></v>
 <v t="yen.20170208125556.1"><vh>ex2 - input 與單位換算</vh></v>
 <v t="yen.20170208125604.1"><vh>filereader</vh></v>
 </v>
+<v t="ibm.20170310202816.1"><vh>@edit 20170310.md</vh></v>
 <v t="yen.20170108171733.81"><vh>@path pages</vh>
 <v t="yen.20170108171733.82"><vh>@edit pages_1.md</vh></v>
 </v>
@@ -408,7 +409,7 @@ class HTTPServerV6(http.server.HTTPServer):
 def domake():
     # build directory
     os.chdir("./../")
-    ipv6_address = '2001:288:6004:17:3004::808'
+    ipv6_address = '::1'
     server_address = (ipv6_address, 6443)
     #httpd = http.server.HTTPServer(server_address, http.server.SimpleHTTPRequestHandler)
     httpd = HTTPServerV6(server_address, http.server.SimpleHTTPRequestHandler)
