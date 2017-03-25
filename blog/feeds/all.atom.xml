@@ -1,10 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>2017Spring 計算機程式 (虎尾科大VE)</title><link href="./" rel="alternate"></link><link href="./feeds/all.atom.xml" rel="self"></link><id>./</id><updated>2017-02-08T11:00:00+08:00</updated><entry><title>W3 啟動區網中的 Fossil SCM server</title><link href="./fossil-scm-server.html" rel="alternate"></link><updated>2017-02-08T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2017-02-08:./fossil-scm-server.html</id><summary type="html">&lt;p&gt;利用 fossil.exe 可以建立倉儲檔案, 也可以配合 stunnel, 採用批次檔自動建立 stunnel.conf 的方式, 讓 Fossil SCM 伺服器能在區域網路中, 以 https 模式連接.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>2017Spring 計算機程式 (虎尾科大VE)</title><link href="./" rel="alternate"></link><link href="./feeds/all.atom.xml" rel="self"></link><id>./</id><updated>2017-03-25T11:00:00+08:00</updated><entry><title>W5 利用 Fossil SCM 對 C 與 Python3 程式進行版次管理</title><link href="./fossil-scm-version-control.html" rel="alternate"></link><published>2017-03-25T11:00:00+08:00</published><updated>2017-03-25T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2017-03-25:./fossil-scm-version-control.html</id><summary type="html">&lt;p&gt;本週開始將利用 Fossil SCM 伺服器管理各組所寫的 C 與 Python3 程式. 課程中將使用 &lt;a href="http://service.mde.tw/public/jsliu_c_programming.pdf"&gt;C 程式設計語言基礎&lt;/a&gt; 研習 ANSI C 程式, 並採用 &lt;a href="https://link.springer.com/book/10.1007/978-1-4842-2385-7"&gt;Lean Python&lt;/a&gt; 研習 Python3 程式, 透過 &lt;a href="http://www.c4learn.com/c-programs/"&gt;http://www.c4learn.com/c-programs/&lt;/a&gt; 中的範例進行練習.&lt;/p&gt;
+
+
+&lt;p&gt;首先, 從課本中找出, 以 C 程式, 利用 for 迴圈與格式化列印所完成的 99 乘法計算程式, 存為 99.c&lt;/p&gt;
+&lt;pre class="brush: c"&gt;
+/* ====================
+99 multiplication table
+==================== */
+#include &lt;stdio.h&gt;
+int main()
+{
+    int x, y;
+    for( x = 1; x &lt;= 9; x++ )
+    {
+        for( y = 1; y &lt;= 9; y++ )
+        {
+            printf("%d", x*y );
+        }
+        printf("\n");
+    }
+    return 0;
+}
+&lt;/pre&gt;
+
+&lt;p&gt;接下來以 Python3 編寫能夠執行相同功能的程式:&lt;/p&gt;
+&lt;pre class="brush: python"&gt;
+for i in range(1, 10):
+   for j in range(1, 10):
+      print(i*j, end="")
+   print()
+&lt;/pre&gt;
+
+&lt;p&gt;同時找出先前所寫的 hello.c 與 hello.py:&lt;/p&gt;
+&lt;p&gt;hello.c:&lt;/p&gt;
+&lt;pre class="brush: c"&gt;
+/* ====================
+ Say Hello World!.
+==================== */
+#include &lt;stdio.h&gt;
+void main()
+{
+ /* 印出 Hello */
+printf("Hello World!");
+}
+&lt;/pre&gt;
+
+&lt;p&gt;hello.py:&lt;/p&gt;
+&lt;pre class="brush: python"&gt;
+print("hello world")
+&lt;/pre&gt;
+
+&lt;p&gt;接下來我們將要先利用各學員近端的 Fossil SCM Server 練習如何對上述4個檔案進行版次管理:&lt;/p&gt;
+&lt;h2&gt;Fossil SCM autosync on 改版&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;fossil clone https://username@192.168.1.68 vcp.fossil&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;輸入與 username 對應的密碼.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在工作目錄中開啟倉儲檔案.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;fossil open vcp.fossil&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;在倉儲對應的工作目錄中進行改版.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;納入所有的改版內容&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;fossil add .&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;提交, 並讓 Fossil SCM 自動完成推送&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;fossil commit -m "message"&lt;/p&gt;
+&lt;h2&gt;Fossil SCM autosync off 改版&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;fossil clone https://192.168.1.68 vcp.fossil&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;輸入與 username 對應的密碼.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在工作目錄中開啟倉儲檔案.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;fossil open vcp.fossil&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;在倉儲對應的工作目錄中進行改版.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;納入所有的改版內容&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;fossil add .&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;利用 fossil remote-url off 切斷內建的帳號綁定&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;提交, 並以手動完成推送&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;fossil commit -m "message"&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;手動推送&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;fossil push https://username@192.168.1.68&lt;/p&gt;
+&lt;p&gt;輸入與 username 對應的密碼後完成推送, 並回應是否要將推送權限資料儲存在近端.&lt;/p&gt;
+&lt;h2&gt;其他說明&lt;/h2&gt;
+&lt;p&gt;假設當使用者啟動近端隨身碟中的 start.bat 時, Fossil SCM Server 在 https://192.168.1.68 中啟動 vcp.fossil 倉儲, 接下來則要利用:&lt;/p&gt;
+&lt;p&gt;fossil clone https://yen@192.168.1.68 vcp.fossil&lt;/p&gt;
+&lt;p&gt;將 URL 中的倉儲克隆到近端的 vcp.fossil 倉儲檔中.&lt;/p&gt;
+&lt;p&gt;接著則要在近端 vcp.fossil 所在目錄下, 建立一個名稱為 wd 的工作目錄.&lt;/p&gt;
+&lt;p&gt;以 cd wd 進入工作目錄之後, 可以利用 fossil open ./../vcp.fossil 將倉儲解開.&lt;/p&gt;
+&lt;p&gt;因為當使用者在不指定用戶的情況下進行 fossil clone, Fossil SCM 會以內定的 autosync 用戶作為指定使用者, 同時會在完成克隆後顯示在命令列中.&lt;/p&gt;
+&lt;p&gt;接下來, 使用者將上述兩個 .c 與 兩個 .py 程式, 從原本的儲存位置, 複製到 wd 工作目錄中.&lt;/p&gt;
+&lt;p&gt;意即原本 vcp.fossil 倉儲中並沒有任何納管的資料內容, 透過操作系統的檔案複製, 將四個程式檔案放入工作目錄後, 必須利用 fossil add . 納入所有的改版內容.&lt;/p&gt;
+&lt;p&gt;接下來則要進行倉儲改版提交與推送的流程.&lt;/p&gt;
+&lt;p&gt;所謂的改版提交, 表示要在倉儲資料庫中對改版內容進行"註記", 也就是改版標記, 並且輸入對應的提交訊息, 以便讓協同者, 可以透過提交註記, 分辨每一次的改版大要.&lt;/p&gt;
+&lt;p&gt;由於 Fossil SCM 的設定中, 內建 autosync 為 on, 也就是改版的提交會自動與推送同步進行, 假如接下來, 使用者採用 fossil clone 時系統內建的使用者, 則只要完成改版提交, Fossil 會自動進行推送的動作.&lt;/p&gt;
+&lt;p&gt;但是, 假如使用者要使用其他俱備提交推送權限的帳號執行後續的動作, 則需要利用:&lt;/p&gt;
+&lt;p&gt;fossil remote-url off&lt;/p&gt;
+&lt;p&gt;抹除 autosync 為 on 所綁定的使用者帳號, 但是提交之後 ,必須手動進行推送.&lt;/p&gt;
+&lt;p&gt;Fossil SCM 提交:&lt;/p&gt;
+&lt;p&gt;fossil commit -m "add four demo program files"&lt;/p&gt;
+&lt;p&gt;Fossil SCM 推送&lt;/p&gt;
+&lt;p&gt;fossil push https://username@192.168.1.68&lt;/p&gt;
+&lt;p&gt;接著輸入與 username 對應的密碼, 即可完成改版推送的流程.&lt;/p&gt;
+&lt;p&gt;完成之後的結果 &lt;a href="https://mde2a1.kmol.info/dir?ci=tip"&gt;https://mde2a1.kmol.info/dir?ci=tip&lt;/a&gt;&lt;/p&gt;</summary><category term="Fossil"></category><category term="w5"></category></entry><entry><title>W3 啟動區網中的 Fossil SCM server</title><link href="./fossil-scm-server.html" rel="alternate"></link><published>2017-02-08T11:00:00+08:00</published><updated>2017-02-08T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2017-02-08:./fossil-scm-server.html</id><summary type="html">&lt;p&gt;利用 fossil.exe 可以建立倉儲檔案, 也可以配合 stunnel, 採用批次檔自動建立 stunnel.conf 的方式, 讓 Fossil SCM 伺服器能在區域網路中, 以 https 模式連接.&lt;/p&gt;
 
 
 &lt;h2&gt;修改 start.bat&lt;/h2&gt;
 &lt;p&gt;當使用者&lt;a href="http://service.mde.tw/public/tiny2017_50MB.7z"&gt;下載&lt;/a&gt;可攜程式系統後, 可以使用手動方式設定 stunnel/config/stunnel.conf 檔案, 順利使用 tmp/fossil_repo 目錄啟動 fossil server, 自第3週起, 我們則要使用批次檔的指令, 以自動的方式取得電腦連外 IP 位址, 並且自動設定 stunnel.conf, 自動以 chrome 連接到本機所啟動的 fossil SCM server.&lt;/p&gt;
-&lt;p&gt;修改後的 start.bat 如下:&lt;/p&gt;
+&lt;p&gt;修改後的 start.bat 如下, 所啟動的 fossil server 位於 y:\tmp\fossil_repo\vcp.fossil 倉儲:&lt;/p&gt;
 &lt;pre class="brush: jscript"&gt;
 REM tiny2017 主要針對初學 Python3 與 C 學員所建立
 REM 近端使用 fossil 管理資料版本, 並且定時轉為 git 格式後上傳到 github
@@ -54,9 +188,58 @@ REM 附加資料
 @echo key = %Disk%:\stunnel\config\localhost.key &gt;&gt; %Disk%:\stunnel\config\stunnel.conf
 REM 啟動 stunnel
 start /MIN stunnel.exe
+REM set proxy
+REG IMPORT setup_proxy.reg
 REM 以 chrome 連線到 https://%NetworkIP%:443
-chrome https://%NetworkIP%
+REM chrome  --proxy-server="140.130.17.17:3128" --proxy-bypass-list="192.168.1.*;*.edu.tw" https://%NetworkIP%
+chrome https://%NetworkIP% http://mde.tw https://mde2a1.kmol.info https://mde2a2.kmol.info https://vimeo.com/user24079973 http://mde.tw/2017springcd/blog/ http://mde.tw/2017springwcm/blog/ http://mde.tw/2017springvcp/blog/ http://service.mde.tw
 Exit
+&lt;/pre&gt;
+
+&lt;p&gt;setup_proxy.reg 設定  Windows proxy 組態檔案:&lt;/p&gt;
+&lt;pre class="brush: jscript"&gt;
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings] 
+"MigrateProxy"=dword:00000001 
+"ProxyEnable"=dword:00000001 
+"ProxyHttp1.1"=dword:00000000 
+"ProxyServer"="http://140.130.17.17:3128" 
+"ProxyOverride"="192.168.1.*;*.edu.tw"
+&lt;/pre&gt;
+
+&lt;p&gt;disable_proxy.reg 去除 Windows proxy 設定組態檔案:&lt;/p&gt;
+&lt;pre class="brush: jscript"&gt;
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings] 
+"ProxyEnable"=dword:00000000
+&lt;/pre&gt;
+
+&lt;p&gt;與上述設定對應的 stop.bat:&lt;/p&gt;
+&lt;pre class="brush: jscript"&gt;
+@echo off
+set Disk=y
+REM 關閉 SciTE
+taskkill /IM SciTE.exe /F
+REM 關閉 python
+taskkill /IM python.exe /F
+REM 關閉 stunnel
+taskkill /IM stunnel.exe /F
+REM 關閉 fossil
+taskkill /IM fossil.exe /F
+REM 關閉 cmd 指令視窗
+taskkill /IM cmd.exe /F
+REM disable proxy
+%Disk%:
+REG IMPORT disable_proxy.reg
+REM 清除 log 資料
+path=%PATH%;
+REM del /Q /F  V:\tmp\*.*
+REM 終止虛擬硬碟與目錄的對應
+subst %Disk%: /D
+REM taskkill /IM mingw32 /F
+EXIT
 &lt;/pre&gt;
 
 &lt;h2&gt;建立 vcp.fossil&lt;/h2&gt;
@@ -97,7 +280,7 @@ Exit
 &lt;p&gt;利用 vcp.fossil 倉儲的網際介面檢查是否已經完成改版提交.&lt;/p&gt;
 &lt;p&gt;若要刪除 y:\tmp\fossil_wd 目錄中的 &lt;em&gt;FOSSIL&lt;/em&gt; 目錄, 則使用:&lt;/p&gt;
 &lt;p&gt;fossil close&lt;/p&gt;
-&lt;p&gt;&lt;a href="http://fossil-scm.org/xfer/help/push"&gt;fossil push&lt;/a&gt;&lt;/p&gt;</summary><category term="Fossil"></category></entry><entry><title>網際 Python3 程式環境</title><link href="./web-based-python.html" rel="alternate"></link><updated>2017-02-08T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2017-02-08:./web-based-python.html</id><summary type="html">&lt;p&gt;利用 &lt;a href="https://brython.info/"&gt;Brython&lt;/a&gt; 建立可以直接在瀏覽器中執行簡單 Python3 程式的環境.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://fossil-scm.org/xfer/help/push"&gt;fossil push&lt;/a&gt;&lt;/p&gt;</summary><category term="Fossil"></category></entry><entry><title>網際 Python3 程式環境</title><link href="./web-based-python.html" rel="alternate"></link><published>2017-02-08T11:00:00+08:00</published><updated>2017-02-08T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2017-02-08:./web-based-python.html</id><summary type="html">&lt;p&gt;利用 &lt;a href="https://brython.info/"&gt;Brython&lt;/a&gt; 建立可以直接在瀏覽器中執行簡單 Python3 程式的環境.&lt;/p&gt;
 
 
 &lt;!-- 導入 FileSaver 與 filereader --&gt;
@@ -372,7 +555,7 @@ def get_ver_and_kw(e):
 document["get_ver_and_kw"].bind("click", get_ver_and_kw)
 &lt;/script&gt;
 
-&lt;p&gt;&lt;button id="get"&gt;for1.py&lt;/button&gt;&lt;button id="get_temp1"&gt;temp1.py&lt;/button&gt;&lt;button id="get_ver_and_kw"&gt;ver_and_kw.py&lt;/button&gt;&lt;/p&gt;</summary><category term="brython"></category></entry><entry><title>C dll 程式庫與 Python3</title><link href="./c-dll-and-python3.html" rel="alternate"></link><updated>2017-01-18T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2017-01-18:./c-dll-and-python3.html</id><summary type="html">&lt;p&gt;利用 &lt;a href="http://bellard.org/tcc/"&gt;Tiny C compiler&lt;/a&gt; 編譯 Windows 10 64 位元 dll 動態連結庫, 並由 Python 程式呼叫執行.&lt;/p&gt;
+&lt;p&gt;&lt;button id="get"&gt;for1.py&lt;/button&gt;&lt;button id="get_temp1"&gt;temp1.py&lt;/button&gt;&lt;button id="get_ver_and_kw"&gt;ver_and_kw.py&lt;/button&gt;&lt;/p&gt;</summary><category term="brython"></category></entry><entry><title>C dll 程式庫與 Python3</title><link href="./c-dll-and-python3.html" rel="alternate"></link><published>2017-01-18T11:00:00+08:00</published><updated>2017-01-18T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2017-01-18:./c-dll-and-python3.html</id><summary type="html">&lt;p&gt;利用 &lt;a href="http://bellard.org/tcc/"&gt;Tiny C compiler&lt;/a&gt; 編譯 Windows 10 64 位元 dll 動態連結庫, 並由 Python 程式呼叫執行.&lt;/p&gt;
 
 
 &lt;h2&gt;利用 Tiny C 編譯 Tiny C&lt;/h2&gt;
@@ -437,7 +620,7 @@ import ctypes
 lib = ctypes.CDLL('multiply.dll')
 result = lib.multiply(3, 2)
 print(result)
-&lt;/pre&gt;</summary><category term="tinyc"></category><category term="dll"></category><category term="ctypes"></category><category term="w12"></category></entry><entry><title>為什麼要學習計算機程式?</title><link href="./why-computer-programming.html" rel="alternate"></link><updated>2017-01-18T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2017-01-18:./why-computer-programming.html</id><summary type="html">&lt;p&gt;車輛工程系學習計算機程式做什麼?&lt;/p&gt;
+&lt;/pre&gt;</summary><category term="tinyc"></category><category term="dll"></category><category term="ctypes"></category><category term="w12"></category></entry><entry><title>為什麼要學習計算機程式?</title><link href="./why-computer-programming.html" rel="alternate"></link><published>2017-01-18T11:00:00+08:00</published><updated>2017-01-18T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2017-01-18:./why-computer-programming.html</id><summary type="html">&lt;p&gt;車輛工程系學習計算機程式做什麼?&lt;/p&gt;
 
 
 &lt;ol&gt;
@@ -494,7 +677,7 @@ print(result)
 &lt;p&gt;&lt;a href="http://theconversation.com/why-everyone-should-have-to-learn-computer-programming-62328"&gt;http://theconversation.com/why-everyone-should-have-to-learn-computer-programming-62328&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;數位化系統 (電腦) 無所不在, 希望高效且客製化運用這些系統, 就必須學習與電腦溝通&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://www.codementor.io/learn-programming/beginner-programming-language-job-salary-community"&gt;https://www.codementor.io/learn-programming/beginner-programming-language-job-salary-community&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href="http://cacm.acm.org/blogs/blog-cacm/176450-python-is-now-the-most-popular-introductory-teaching-language-at-top-u-s-universities/fulltext"&gt;http://cacm.acm.org/blogs/blog-cacm/176450-python-is-now-the-most-popular-introductory-teaching-language-at-top-u-s-universities/fulltext&lt;/a&gt;&lt;/p&gt;</summary><category term="programming"></category><category term="w2"></category></entry><entry><title>2017Spring 車輛工程系計算機程式</title><link href="./2017spring-ve-cp.html" rel="alternate"></link><updated>2017-01-08T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2017-01-08:./2017spring-ve-cp.html</id><summary type="html">&lt;p&gt;為了運行速度, 我們學 C; 為了開發效率, 我們學 Python, 想要同時得到運行速度與開發效率, 我們學習 C + Python! 更具體的說: 在 2017Spring 的計算機程式課程中, 我們學習簡單的 ANSI C 與 Python3.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://cacm.acm.org/blogs/blog-cacm/176450-python-is-now-the-most-popular-introductory-teaching-language-at-top-u-s-universities/fulltext"&gt;http://cacm.acm.org/blogs/blog-cacm/176450-python-is-now-the-most-popular-introductory-teaching-language-at-top-u-s-universities/fulltext&lt;/a&gt;&lt;/p&gt;</summary><category term="programming"></category><category term="w2"></category></entry><entry><title>2017Spring 車輛工程系計算機程式</title><link href="./2017spring-ve-cp.html" rel="alternate"></link><published>2017-01-08T11:00:00+08:00</published><updated>2017-01-08T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2017-01-08:./2017spring-ve-cp.html</id><summary type="html">&lt;p&gt;為了運行速度, 我們學 C; 為了開發效率, 我們學 Python, 想要同時得到運行速度與開發效率, 我們學習 C + Python! 更具體的說: 在 2017Spring 的計算機程式課程中, 我們學習簡單的 ANSI C 與 Python3.&lt;/p&gt;
 
 
 &lt;p&gt;2017 Spring 車輛工程系計算機程式 (五) 18:30-20:00上課日期:&lt;/p&gt;

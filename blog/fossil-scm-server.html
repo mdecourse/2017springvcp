@@ -144,7 +144,7 @@
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-02-08T11:00:00+08:00"> 三 08 二月 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2017-02-08T11:00:00+08:00"> Wed 08 February 2017</time>
     </span>
             <span class="label label-default">By</span>
             <a href="./author/yen.html"><i class="fa fa-user"></i> yen</a>
@@ -161,7 +161,7 @@
 
 <h2>修改 start.bat</h2>
 <p>當使用者<a href="http://service.mde.tw/public/tiny2017_50MB.7z">下載</a>可攜程式系統後, 可以使用手動方式設定 stunnel/config/stunnel.conf 檔案, 順利使用 tmp/fossil_repo 目錄啟動 fossil server, 自第3週起, 我們則要使用批次檔的指令, 以自動的方式取得電腦連外 IP 位址, 並且自動設定 stunnel.conf, 自動以 chrome 連接到本機所啟動的 fossil SCM server.</p>
-<p>修改後的 start.bat 如下:</p>
+<p>修改後的 start.bat 如下, 所啟動的 fossil server 位於 y:\tmp\fossil_repo\vcp.fossil 倉儲:</p>
 <pre class="brush: jscript">
 REM tiny2017 主要針對初學 Python3 與 C 學員所建立
 REM 近端使用 fossil 管理資料版本, 並且定時轉為 git 格式後上傳到 github
@@ -211,9 +211,58 @@ REM 附加資料
 @echo key = %Disk%:\stunnel\config\localhost.key >> %Disk%:\stunnel\config\stunnel.conf
 REM 啟動 stunnel
 start /MIN stunnel.exe
+REM set proxy
+REG IMPORT setup_proxy.reg
 REM 以 chrome 連線到 https://%NetworkIP%:443
-chrome https://%NetworkIP%
+REM chrome  --proxy-server="140.130.17.17:3128" --proxy-bypass-list="192.168.1.*;*.edu.tw" https://%NetworkIP%
+chrome https://%NetworkIP% http://mde.tw https://mde2a1.kmol.info https://mde2a2.kmol.info https://vimeo.com/user24079973 http://mde.tw/2017springcd/blog/ http://mde.tw/2017springwcm/blog/ http://mde.tw/2017springvcp/blog/ http://service.mde.tw
 Exit
+</pre>
+
+<p>setup_proxy.reg 設定  Windows proxy 組態檔案:</p>
+<pre class="brush: jscript">
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings] 
+"MigrateProxy"=dword:00000001 
+"ProxyEnable"=dword:00000001 
+"ProxyHttp1.1"=dword:00000000 
+"ProxyServer"="http://140.130.17.17:3128" 
+"ProxyOverride"="192.168.1.*;*.edu.tw"
+</pre>
+
+<p>disable_proxy.reg 去除 Windows proxy 設定組態檔案:</p>
+<pre class="brush: jscript">
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings] 
+"ProxyEnable"=dword:00000000
+</pre>
+
+<p>與上述設定對應的 stop.bat:</p>
+<pre class="brush: jscript">
+@echo off
+set Disk=y
+REM 關閉 SciTE
+taskkill /IM SciTE.exe /F
+REM 關閉 python
+taskkill /IM python.exe /F
+REM 關閉 stunnel
+taskkill /IM stunnel.exe /F
+REM 關閉 fossil
+taskkill /IM fossil.exe /F
+REM 關閉 cmd 指令視窗
+taskkill /IM cmd.exe /F
+REM disable proxy
+%Disk%:
+REG IMPORT disable_proxy.reg
+REM 清除 log 資料
+path=%PATH%;
+REM del /Q /F  V:\tmp\*.*
+REM 終止虛擬硬碟與目錄的對應
+subst %Disk%: /D
+REM taskkill /IM mingw32 /F
+EXIT
 </pre>
 
 <h2>建立 vcp.fossil</h2>
@@ -270,6 +319,11 @@ Exit
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
+                        <a href="./fossil-scm-version-control.html">
+                            W5 利用 Fossil SCM 對 C 與 Python3 程式進行版次管理
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="./fossil-scm-server.html">
                             W3 啟動區網中的 Fossil SCM server
                         </a>
@@ -287,11 +341,6 @@ Exit
                     <li class="list-group-item">
                         <a href="./why-computer-programming.html">
                             為什麼要學習計算機程式?
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="./2017spring-ve-cp.html">
-                            2017Spring 車輛工程系計算機程式
                         </a>
                     </li>
                 </ul>
