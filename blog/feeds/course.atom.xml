@@ -56,7 +56,35 @@ print("圓周長為:", 2*math.pi.radius)
 &lt;p&gt;在工作目錄中所進行的改版, 以文字檔案為主, 但也可以放入其他二位元檔案, 只是 Fossil SCM 中的二位元檔案無法像文字檔一樣, 在每次改版後, 明確列出各次改版內容的差異.&lt;/p&gt;
 &lt;h3&gt;以 commit 指令進行提交&lt;/h3&gt;
 &lt;p&gt;接著再進行改版後, 執行 fossil commit -m "改版註記訊息", 註記每次改版內容的字串, 主要用來簡要說明各次改版的內容, 之後使用者可以根據此提交註記訊息來辨識各版次的改版階段, 也能使用 checkout 指令, 將倉儲檔案回復到先前的特定版次狀態.&lt;/p&gt;
-&lt;p&gt;最後, 因為前面採用特定用戶身份進行 fossil clone, 因此 fossil 會以內建的 autosync 設定為 on 的情況, 自動執行倉儲改版內容的推送.&lt;/p&gt;</summary><category term="Fossil"></category><category term="w8"></category></entry><entry><title>W5 利用 Fossil SCM 對 C 與 Python3 程式進行版次管理</title><link href="./fossil-scm-version-control.html" rel="alternate"></link><published>2017-03-25T11:00:00+08:00</published><updated>2017-03-25T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2017-03-25:./fossil-scm-version-control.html</id><summary type="html">&lt;p&gt;本週開始將利用 Fossil SCM 伺服器管理各組所寫的 C 與 Python3 程式. 課程中將使用 &lt;a href="http://service.mde.tw/public/jsliu_c_programming.pdf"&gt;C 程式設計語言基礎&lt;/a&gt; 研習 ANSI C 程式, 並採用 &lt;a href="https://link.springer.com/book/10.1007/978-1-4842-2385-7"&gt;Lean Python&lt;/a&gt; 研習 Python3 程式, 透過 &lt;a href="http://www.c4learn.com/c-programs/"&gt;http://www.c4learn.com/c-programs/&lt;/a&gt; 中的範例進行練習.&lt;/p&gt;
+&lt;p&gt;最後, 因為前面採用特定用戶身份進行 fossil clone, 因此 fossil 會以內建的 autosync 設定為 on 的情況, 自動執行倉儲改版內容的推送.&lt;/p&gt;
+&lt;h3&gt;基本算術題目&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Calculate Area and Circumference of Circle (計算圓面積與圓周長)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Calculate Area of Scalene Triangle (計算不等邊三角形面積)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Calculate Area of Equilatral Triangle (計算正三角形面積)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Calculate Area of Right angle Triangle (計算直角三角形面積)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Calculate Area of Rectangle (計算長方形面積)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;期中自評表&lt;/h3&gt;
+&lt;p&gt;學生自評部份 (80%) +  各組 Fossil SCM 上的佐證紀錄 (20%)&lt;/p&gt;
+&lt;p&gt;每週都準時上下課 (20 分)&lt;/p&gt;
+&lt;p&gt;上面 5 個題目, 寫出對應的 C 與 Python 程式 (每一題 6 分)&lt;/p&gt;
+&lt;p&gt;請各組員根據上述自評表, 在各組的 Fossil SCM 倉儲中完成期中報告與自評分數&lt;/p&gt;
+&lt;h3&gt;線上 C 與 Python3 程式執行&lt;/h3&gt;
+&lt;p&gt;C 程式：&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/dadadel/codelauncher"&gt;https://github.com/dadadel/codelauncher&lt;/a&gt; (在 Ubuntu 使用 gcc, 在 Windows 必須改為 Tiny C compiler)&lt;/p&gt;
+&lt;p&gt;Python3 程式:&lt;/p&gt;
+&lt;p&gt;&lt;a href="web-based-python.html"&gt;網際 Python3 執行環境&lt;/a&gt;&lt;/p&gt;</summary><category term="Fossil"></category><category term="w8"></category></entry><entry><title>W5 利用 Fossil SCM 對 C 與 Python3 程式進行版次管理</title><link href="./fossil-scm-version-control.html" rel="alternate"></link><published>2017-03-25T11:00:00+08:00</published><updated>2017-03-25T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2017-03-25:./fossil-scm-version-control.html</id><summary type="html">&lt;p&gt;本週開始將利用 Fossil SCM 伺服器管理各組所寫的 C 與 Python3 程式. 課程中將使用 &lt;a href="http://service.mde.tw/public/jsliu_c_programming.pdf"&gt;C 程式設計語言基礎&lt;/a&gt; 研習 ANSI C 程式, 並採用 &lt;a href="https://link.springer.com/book/10.1007/978-1-4842-2385-7"&gt;Lean Python&lt;/a&gt; 研習 Python3 程式, 透過 &lt;a href="http://www.c4learn.com/c-programs/"&gt;http://www.c4learn.com/c-programs/&lt;/a&gt; 中的範例進行練習.&lt;/p&gt;
 
 
 &lt;p&gt;首先, 從課本中找出, 以 C 程式, 利用 for 迴圈與格式化列印所完成的 99 乘法計算程式, 存為 99.c&lt;/p&gt;
