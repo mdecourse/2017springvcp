@@ -15,6 +15,11 @@
 </v>
 <v t="yen.20170108171622.1"><vh>有關 2017springvcp</vh></v>
 <v t="yen.20170108171733.1" a="E"><vh>@path ../</vh>
+<v t="yen.20170422002216.1" a="E"><vh>@path python_ex</vh>
+<v t="yen.20170422002227.1"><vh>@edit circle_area.py</vh></v>
+<v t="yen.20170422002448.1"><vh>@edit scalene_area.py</vh></v>
+<v t="yen.20170422003031.1"><vh>@edit equilateral_area.py</vh></v>
+</v>
 <v t="yen.20170108171733.2"><vh>@button pelican-blog</vh></v>
 <v t="yen.20170108171733.3"><vh>@edit README.md</vh></v>
 <v t="yen.20170108171733.4"><vh>@edit .gitignore</vh></v>
@@ -59,7 +64,7 @@
 <v t="yen.20170108171733.72"><vh>@edit 20170108.md</vh></v>
 <v t="yen.20170118204210.1"><vh>@edit 20170118.md</vh></v>
 <v t="yen.20170126025904.1"><vh>@edit 20170125.md</vh></v>
-<v t="yen.20170208125141.1"><vh>@clean 20170208.md</vh>
+<v t="yen.20170208125141.1" a="E"><vh>@clean 20170208.md</vh>
 <v t="yen.20170208125543.1"><vh>ex1 - for 迴圈</vh></v>
 <v t="yen.20170208125556.1"><vh>ex2 - input 與單位換算</vh></v>
 <v t="yen.20170208125604.1"><vh>filereader</vh></v>
@@ -700,9 +705,34 @@ def get_ver_and_kw(e):
     script1.editor.gotoLine(0)
     
 document["get_ver_and_kw"].bind("click", get_ver_and_kw)
+
+def get_circle_area(e):
+    data = open("./../python_ex/circle_area.py").read()
+    script1.editor.setValue(data)
+    script1.editor.scrollToRow(0)
+    script1.editor.gotoLine(0)
+    
+document["get_circle_area"].bind("click", get_circle_area)
+
+def get_scalene_area(e):
+    data = open("./../python_ex/scalene_area.py").read()
+    script1.editor.setValue(data)
+    script1.editor.scrollToRow(0)
+    script1.editor.gotoLine(0)
+    
+document["get_scalene_area"].bind("click", get_scalene_area)
+
+def get_equilateral_area(e):
+    data = open("./../python_ex/equilateral_area.py").read()
+    script1.editor.setValue(data)
+    script1.editor.scrollToRow(0)
+    script1.editor.gotoLine(0)
+    
+document["get_equilateral_area"].bind("click", get_equilateral_area)
 &lt;/script&gt;
 
-&lt;button id="get"&gt;for1.py&lt;/button&gt;&lt;button id="get_temp1"&gt;temp1.py&lt;/button&gt;&lt;button id="get_ver_and_kw"&gt;ver_and_kw.py&lt;/button&gt;
+&lt;button id="get"&gt;for1.py&lt;/button&gt;&lt;button id="get_temp1"&gt;temp1.py&lt;/button&gt;&lt;button id="get_ver_and_kw"&gt;ver_and_kw.py&lt;/button&gt;&lt;button id="get_circle_area"&gt;circle_area.py&lt;/button&gt;&lt;button id="get_scalene_area"&gt;scalene_area.py&lt;/button&gt;&lt;button id="get_equilateral_area"&gt;equilateral_area.py&lt;/button&gt;
 </t>
+<t tx="yen.20170422002216.1"></t>
 </tnodes>
 </leo_file>

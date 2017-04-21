@@ -429,9 +429,33 @@ def get_ver_and_kw(e):
     script1.editor.gotoLine(0)
 
 document["get_ver_and_kw"].bind("click", get_ver_and_kw)
+
+def get_circle_area(e):
+    data = open("./../python_ex/circle_area.py").read()
+    script1.editor.setValue(data)
+    script1.editor.scrollToRow(0)
+    script1.editor.gotoLine(0)
+
+document["get_circle_area"].bind("click", get_circle_area)
+
+def get_scalene_area(e):
+    data = open("./../python_ex/scalene_area.py").read()
+    script1.editor.setValue(data)
+    script1.editor.scrollToRow(0)
+    script1.editor.gotoLine(0)
+
+document["get_scalene_area"].bind("click", get_scalene_area)
+
+def get_equilateral_area(e):
+    data = open("./../python_ex/equilateral_area.py").read()
+    script1.editor.setValue(data)
+    script1.editor.scrollToRow(0)
+    script1.editor.gotoLine(0)
+
+document["get_equilateral_area"].bind("click", get_equilateral_area)
 </script>
 
-<p><button id="get">for1.py</button><button id="get_temp1">temp1.py</button><button id="get_ver_and_kw">ver_and_kw.py</button></p>
+<p><button id="get">for1.py</button><button id="get_temp1">temp1.py</button><button id="get_ver_and_kw">ver_and_kw.py</button><button id="get_circle_area">circle_area.py</button><button id="get_scalene_area">scalene_area.py</button><button id="get_equilateral_area">equilateral_area.py</button></p>
             </div>
             <!-- /.entry-content -->
         </article>
