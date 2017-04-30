@@ -1,0 +1,4 @@
+LIBRARY multiply2.dll
+
+EXPORTS
+multiply

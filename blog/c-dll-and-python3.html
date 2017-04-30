@@ -231,6 +231,34 @@ lib = ctypes.CDLL('multiply.dll')
 result = lib.multiply(3, 2)
 print(result)
 </pre>
+
+<p>因為 <a href="https://docs.python.org/3/library/ctypes.html">ctypes</a> 內建傳回值為 int, 因此若 C 對應動態連結庫輸入或傳回值為浮點數, 就必須手動宣告.</p>
+<p>例如, 將上述函式的輸入與輸出均由 int 改為 float 如下:</p>
+<pre class="brush: c">
+// multiply2.c
+#include <stdio.h>
+
+float multiply(float, float);
+
+__declspec(dllexport) float
+multiply(float num1, float num2)
+{
+return num1 * num2;
+}
+</pre>
+
+<p>可利用下列指令, 將 multiply2.c 編譯為動態連結庫 myltiply2.dll</p>
+<p>tcc -w -shared -DLIBTCC_AS_DLL -DONE_SOURCE multiply2.c -o multiply2.dll</p>
+<p>但是 Python3 程式部份就必須改為:</p>
+<pre class="brush: python">
+import ctypes
+
+lib = ctypes.CDLL('multiply2.dll')
+# By default functions are assumed to return the C int type. Other return types can be specified by setting the restype attribute of the function object.
+lib.multiply.restype = ctypes.c_float
+result = lib.multiply(ctypes.c_float(3.0), ctypes.c_float(2.0))
+print(result)
+</pre>
             </div>
             <!-- /.entry-content -->
         </article>
