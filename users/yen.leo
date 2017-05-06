@@ -64,7 +64,7 @@
 <v t="yen.20170108171733.72"><vh>@edit 20170108.md</vh></v>
 <v t="yen.20170118204210.1"><vh>@edit 20170118.md</vh></v>
 <v t="yen.20170126025904.1"><vh>@edit 20170125.md</vh></v>
-<v t="yen.20170208125141.1" a="E"><vh>@clean 20170208.md</vh>
+<v t="yen.20170208125141.1"><vh>@clean 20170208.md</vh>
 <v t="yen.20170208125543.1"><vh>ex1 - for 迴圈</vh></v>
 <v t="yen.20170208125556.1"><vh>ex2 - input 與單位換算</vh></v>
 <v t="yen.20170208125604.1"><vh>filereader</vh></v>
@@ -72,6 +72,7 @@
 <v t="ibm.20170310202816.1"><vh>@edit 20170310.md</vh></v>
 <v t="yen.20170325162306.1"><vh>@edit 20170325.md</vh></v>
 <v t="yen.20170415005531.1"><vh>@edit 20170414.md</vh></v>
+<v t="yen.20170506085709.1"><vh>@edit 20170505.md</vh></v>
 <v t="yen.20170108171733.81"><vh>@path pages</vh>
 <v t="yen.20170108171733.82"><vh>@edit pages_1.md</vh></v>
 </v>
@@ -80,6 +81,7 @@
 </v>
 <v t="yen.20170108171930.1"><vh>@button https server</vh></v>
 <v t="yen.20170108171939.1"><vh>@button ipv6 https server</vh></v>
+<v t="yen.20170506104343.1"><vh>Brython 猜數字遊戲</vh></v>
 </vnodes>
 <tnodes>
 <t tx="leo.20170224211149.1"></t>
@@ -734,5 +736,20 @@ document["get_equilateral_area"].bind("click", get_equilateral_area)
 &lt;button id="get"&gt;for1.py&lt;/button&gt;&lt;button id="get_temp1"&gt;temp1.py&lt;/button&gt;&lt;button id="get_ver_and_kw"&gt;ver_and_kw.py&lt;/button&gt;&lt;button id="get_circle_area"&gt;circle_area.py&lt;/button&gt;&lt;button id="get_scalene_area"&gt;scalene_area.py&lt;/button&gt;&lt;button id="get_equilateral_area"&gt;equilateral_area.py&lt;/button&gt;
 </t>
 <t tx="yen.20170422002216.1"></t>
+<t tx="yen.20170506104343.1">from browser import html, alert
+import random
+
+alert("開始玩猜數字遊戲")
+標準答案 = random.randint(1, 100)
+你猜的數字 = int(input("請輸入您所猜 1~100 間的整數:"))
+猜測次數 = 1
+while 標準答案 != 你猜的數字:
+    if 標準答案 &lt; 你猜的數字:
+        alert("猜第" + str(猜測次數) + "次, 太大了，再猜一次 :)加油")
+    else:
+        alert("猜第" + str(猜測次數) + "次, 太小了，再猜一次 :)加油")
+    你猜的數字 = int(input("請輸入您所猜 1~100 間的整數:"))
+    猜測次數 += 1
+alert("猜對了！答案為" + str(標準答案) + ", 總共猜了" + str(猜測次數) + "次")</t>
 </tnodes>
 </leo_file>

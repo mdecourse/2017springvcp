@@ -5,28 +5,28 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>./</loc>
-<lastmod>2017-04-30T11:53:19-00:00</lastmod>
+<lastmod>2017-05-06T10:44:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>./archives.html</loc>
-<lastmod>2017-04-30T11:53:19-00:00</lastmod>
+<lastmod>2017-05-06T10:44:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>./tags.html</loc>
-<lastmod>2017-04-30T11:53:19-00:00</lastmod>
+<lastmod>2017-05-06T10:44:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>./categories.html</loc>
-<lastmod>2017-04-30T11:53:19-00:00</lastmod>
+<lastmod>2017-05-06T10:44:09-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -34,6 +34,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>./pages/about/</loc>
 <lastmod>2017-02-24T23:22:42+08:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>./w11-enter-into-program-project-design.html</loc>
+<lastmod>2017-05-05T11:00:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -89,14 +96,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>./category/course.html</loc>
-<lastmod>2017-04-14T11:00:00+08:06</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
-<loc>./tag/programming.html</loc>
-<lastmod>2017-01-18T11:00:00+08:06</lastmod>
+<lastmod>2017-05-05T11:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -116,8 +116,8 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>./tag/w5.html</loc>
-<lastmod>2017-03-25T11:00:00+08:06</lastmod>
+<loc>./tag/brython.html</loc>
+<lastmod>2017-05-05T11:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -130,6 +130,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>./tag/w5.html</loc>
+<lastmod>2017-03-25T11:00:00+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>./tag/syllabus.html</loc>
 <lastmod>2017-01-08T11:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
@@ -137,14 +144,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>./tag/w12.html</loc>
+<loc>./tag/w2.html</loc>
 <lastmod>2017-01-18T11:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>./tag/w2.html</loc>
+<loc>./tag/programming.html</loc>
 <lastmod>2017-01-18T11:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
@@ -158,15 +165,15 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>./tag/brython.html</loc>
-<lastmod>2017-02-08T11:00:00+08:06</lastmod>
+<loc>./tag/fossil.html</loc>
+<lastmod>2017-05-05T11:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>./tag/fossil.html</loc>
-<lastmod>2017-04-14T11:00:00+08:06</lastmod>
+<loc>./tag/w11.html</loc>
+<lastmod>2017-05-05T11:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -179,8 +186,15 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>./tag/w12.html</loc>
+<lastmod>2017-01-18T11:00:00+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>./author/yen.html</loc>
-<lastmod>2017-04-14T11:00:00+08:06</lastmod>
+<lastmod>2017-05-05T11:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
