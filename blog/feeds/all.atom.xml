@@ -1,5 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>2017Spring 計算機程式 (虎尾科大VE)</title><link href="./" rel="alternate"></link><link href="./feeds/all.atom.xml" rel="self"></link><id>./</id><updated>2017-05-05T11:00:00+08:00</updated><entry><title>W11 計算機程式課程總結</title><link href="./w11-enter-into-program-project-design.html" rel="alternate"></link><published>2017-05-05T11:00:00+08:00</published><updated>2017-05-05T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2017-05-05:./w11-enter-into-program-project-design.html</id><summary type="html">&lt;p&gt;截至計算機程式課程的第十一週, 總結一下本課程已經介紹的內容與隨後的應用, 並希望各組能夠自行利用這些內容, 完成一個自選的程式設計專題.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>2017Spring 計算機程式 (虎尾科大VE)</title><link href="./" rel="alternate"></link><link href="./feeds/all.atom.xml" rel="self"></link><id>./</id><updated>2017-05-26T11:00:00+08:00</updated><entry><title>W14 - Pygame 程式模組</title><link href="./w14-starting-pygame.html" rel="alternate"></link><published>2017-05-26T11:00:00+08:00</published><updated>2017-05-26T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2017-05-26:./w14-starting-pygame.html</id><summary type="html">&lt;p&gt;本週進行 Pygame 模組的安裝與簡介&lt;/p&gt;
+
+
+&lt;h2&gt;安裝 Pygame&lt;/h2&gt;
+&lt;p&gt;python -m pip install pygame&lt;/p&gt;
+&lt;p&gt;&lt;a href="./../data/w14/vcp_portable.7z"&gt;下載&lt;/a&gt;已經安裝 Pygame 的可攜程式系統&lt;/p&gt;
+&lt;h2&gt;範例程式&lt;/h2&gt;
+&lt;pre class="brush: python"&gt;
+#vcpw14-1.py 需要 skier_down.png 與 skier_crash.png 兩個圖檔才能執行
+import pygame
+# 載入圖檔
+skier= pygame.image.load('skier_down.png')
+skier2= pygame.image.load('skier_crash.png')
+# 設定影幕尺寸
+screen = pygame.display.set_mode((800, 600))
+# 填入白色
+screen.fill([255, 255, 255])
+# 設定時間追蹤物件
+clock = pygame.time.Clock()
+# 在螢幕中特定位置畫出 skier
+screen.blit(skier, (50, 100))
+screen.blit(skier2, (100, 100))
+screen.blit(skier2, (200, 100))
+# 準備執行迴圈
+running = True
+while running:
+    clock.tick(30)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT: 
+            running = False
+    pygame.display.flip()
+&lt;/pre&gt;
+
+&lt;p&gt;執行結果:&lt;/p&gt;
+&lt;p&gt;&lt;img src="./../data/w14/vcpw14-1.png" width="600" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="./../data/w14/vcpw14-1.7z"&gt;下載&lt;/a&gt; 上述 vcpw14-1.7z 程式範例.&lt;/p&gt;
+&lt;p&gt;&lt;a href="./../data/w14/Skier.7z"&gt;下載  Skier.7z&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="./../data/w14/PythonBattle.7z"&gt;下載  PythonBattle.7z&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="./../data/w14/PyPong.7z"&gt;下載  PyPong.7z&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="./../data/w14/LunarLander.7z"&gt;下載  LunarLander.7z&lt;/a&gt;&lt;/p&gt;</summary><category term="Pygame"></category><category term="w14"></category></entry><entry><title>W11 計算機程式課程總結</title><link href="./w11-enter-into-program-project-design.html" rel="alternate"></link><published>2017-05-05T11:00:00+08:00</published><updated>2017-05-05T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2017-05-05:./w11-enter-into-program-project-design.html</id><summary type="html">&lt;p&gt;截至計算機程式課程的第十一週, 總結一下本課程已經介紹的內容與隨後的應用, 並希望各組能夠自行利用這些內容, 完成一個自選的程式設計專題.&lt;/p&gt;
 
 
 &lt;h3&gt;以類解譯模式執行 ANSI C 程式&lt;/h3&gt;
