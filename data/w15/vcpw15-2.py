@@ -1,9 +1,12 @@
+#vcpw15-2.py
 import pygame, sys
 from pygame.locals import *
 
+# 起始 pygame
 pygame.init()
-
+# 設定執行視窗大小
 DISPLAYSURF = pygame.display.set_mode((500, 400), 0, 32)
+# 設定執行視窗標題
 pygame.display.set_caption('Drawing')
 
 BLACK = (0, 0, 0)
